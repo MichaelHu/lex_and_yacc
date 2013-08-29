@@ -1,0 +1,164 @@
+<?php
+/**
+* Smarty Internal Plugin Configfilelexer
+*
+* This is the lexer to break the config file source into tokens 
+* @package Smarty
+* @subpackage Config
+* @author Uwe Tews 
+*/
+/**
+* Smarty Internal Plugin Configfilelexer
+*/
+class SwitchAssignLexer
+{
+
+    public $data;
+    public $counter;
+    public $token;
+    public $value;
+    public $node;
+    public $line;
+    private $state = 1;
+    private $mbstring_overload = false;
+    public $smarty_token_names = array (		// Text for parser error messages
+   				);
+    				
+    				
+    function __construct($data, $smarty = null)
+    {
+        // set instance object
+        self::instance($this); 
+        $this->data = $data . "\n"; //now all lines are \n-terminated
+        $this->counter = 0;
+        $this->line = 1;
+        $this->smarty = $smarty; 
+     }
+    public static function &instance($new_instance = null)
+    {
+        static $instance = null;
+        if (isset($new_instance) && is_object($new_instance))
+            $instance = $new_instance;
+        return $instance;
+    } 
+
+
+/*!lex2php
+%input $this->data
+%counter $this->counter
+%token $this->token
+%value $this->value
+%line $this->line
+num = /\d+(?:\.\d+)?/
+plus = "+"
+assign = "="
+eq = "=="
+gt = ">"
+lt = "<"
+lparen = "("
+rparen = ")"
+lbrace = "{"
+rbrace = "}"
+if = "if"
+else = "else"
+id = /\$[a-zA-Z_]+/
+semi_colon = ";"
+newline = /\n/
+ws = /[\t\r ]/
+other = /@_@.+?@_@/
+*/
+
+/*!lex2php
+%statename START
+
+plus {
+	echo "value: [$this->value]\n";
+	$this->token = SwitchAssignParser::SWITCHASSIGN_PLUS;
+    // $this->yypushstate(self::VALUE);
+}
+id {
+	echo "value: [$this->value]\n";
+	$this->token = SwitchAssignParser::SWITCHASSIGN_ID;
+    // $this->yypushstate(self::VALUE);
+}
+num {
+	echo "value: [$this->value]\n";
+	$this->token = SwitchAssignParser::SWITCHASSIGN_NUM;
+    // $this->yypushstate(self::VALUE);
+}
+gt {
+	echo "value: [$this->value]\n";
+	$this->token = SwitchAssignParser::SWITCHASSIGN_GT;
+    // $this->yypushstate(self::VALUE);
+}
+lt {
+	echo "value: [$this->value]\n";
+	$this->token = SwitchAssignParser::SWITCHASSIGN_LT;
+    // $this->yypushstate(self::VALUE);
+}
+lparen {
+	echo "value: [$this->value]\n";
+	$this->token = SwitchAssignParser::SWITCHASSIGN_LPAREN;
+    // $this->yypushstate(self::VALUE);
+}
+lbrace {
+	echo "value: [$this->value]\n";
+	$this->token = SwitchAssignParser::SWITCHASSIGN_LBRACE;
+    // $this->yypushstate(self::VALUE);
+}
+rbrace {
+	echo "value: [$this->value]\n";
+	$this->token = SwitchAssignParser::SWITCHASSIGN_RBRACE;
+    // $this->yypushstate(self::VALUE);
+}
+rparen {
+	echo "value: [$this->value]\n";
+	$this->token = SwitchAssignParser::SWITCHASSIGN_RPAREN;
+    // $this->yypushstate(self::VALUE);
+}
+if {
+	echo "value: [$this->value]\n";
+	$this->token = SwitchAssignParser::SWITCHASSIGN_IF;
+    // $this->yypushstate(self::VALUE);
+}
+else {
+	echo "value: [$this->value]\n";
+	$this->token = SwitchAssignParser::SWITCHASSIGN_ELSE;
+    // $this->yypushstate(self::VALUE);
+}
+eq {
+	echo "value: [$this->value]\n";
+	$this->token = SwitchAssignParser::SWITCHASSIGN_EQ;
+    // $this->yypushstate(self::VALUE);
+}
+assign {
+	echo "value: [$this->value]\n";
+	$this->token = SwitchAssignParser::SWITCHASSIGN_ASSIGN;
+    // $this->yypushstate(self::VALUE);
+}
+semi_colon {
+	echo "value: [$this->value]\n";
+	$this->token = SwitchAssignParser::SWITCHASSIGN_SEMI_COLON;
+    // $this->yypushstate(self::VALUE);
+}
+newline {
+	// echo "value: [$this->value]\n";
+	// $this->token = CalcParser::CALC_NEWLINE;
+    // $this->yypushstate(self::VALUE);
+	return false;
+}
+ws {
+	// echo "value: [$this->value]\n";
+    return false;
+}
+other {
+	// echo "value: [$this->value]\n";
+	$this->token = SwitchAssignParser::SWITCHASSIGN_OTHER;
+    // return false;
+}
+
+*/
+}
+
+
+?>

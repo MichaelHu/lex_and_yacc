@@ -1,0 +1,104 @@
+<?php
+/**
+* Smarty Internal Plugin Configfilelexer
+*
+* This is the lexer to break the config file source into tokens 
+* @package Smarty
+* @subpackage Config
+* @author Uwe Tews 
+*/
+/**
+* Smarty Internal Plugin Configfilelexer
+*/
+class AssignLexer
+{
+
+    public $data;
+    public $counter;
+    public $token;
+    public $value;
+    public $node;
+    public $line;
+    private $state = 1;
+    private $mbstring_overload = false;
+    public $smarty_token_names = array (		// Text for parser error messages
+   				);
+    				
+    				
+    function __construct($data, $smarty = null)
+    {
+        // set instance object
+        self::instance($this); 
+        $this->data = $data . "\n"; //now all lines are \n-terminated
+        $this->counter = 0;
+        $this->line = 1;
+        $this->smarty = $smarty; 
+     }
+    public static function &instance($new_instance = null)
+    {
+        static $instance = null;
+        if (isset($new_instance) && is_object($new_instance))
+            $instance = $new_instance;
+        return $instance;
+    } 
+
+
+/*!lex2php
+%input $this->data
+%counter $this->counter
+%token $this->token
+%value $this->value
+%line $this->line
+num = /\d+(?:\.\d+)?/
+plus = "+"
+eq = "="
+id = /\$[a-zA-Z_]+/
+semi_colon = ";"
+newline = /\n/
+ws = /[\t\r ]/
+*/
+
+/*!lex2php
+%statename START
+
+plus {
+	echo "value: [$this->value]\n";
+	$this->token = AssignParser::ASSIGN_PLUS;
+    // $this->yypushstate(self::VALUE);
+}
+id {
+	echo "value: [$this->value]\n";
+	$this->token = AssignParser::ASSIGN_ID;
+    // $this->yypushstate(self::VALUE);
+}
+num {
+	// echo "value: [$this->value]\n";
+	$this->token = AssignParser::ASSIGN_NUM;
+    // $this->yypushstate(self::VALUE);
+}
+eq {
+	// echo "value: [$this->value]\n";
+	$this->token = AssignParser::ASSIGN_EQ;
+    // $this->yypushstate(self::VALUE);
+}
+semi_colon {
+	// echo "value: [$this->value]\n";
+	$this->token = AssignParser::ASSIGN_SEMI_COLON;
+    // $this->yypushstate(self::VALUE);
+}
+newline {
+	// echo "value: [$this->value]\n";
+	// $this->token = CalcParser::CALC_NEWLINE;
+    // $this->yypushstate(self::VALUE);
+	return false;
+}
+ws {
+	// echo "value: [$this->value]\n";
+    return false;
+}
+
+*/
+}
+
+
+?>

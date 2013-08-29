@@ -1,0 +1,191 @@
+<?php
+/**
+* Smarty Internal Plugin Configfilelexer
+*
+* This is the lexer to break the config file source into tokens 
+* @package Smarty
+* @subpackage Config
+* @author Uwe Tews 
+*/
+/**
+* Smarty Internal Plugin Configfilelexer
+*/
+class FisCssLexer
+{
+
+    public $data;
+    public $counter;
+    public $token;
+    public $value;
+    public $node;
+    public $line;
+    private $state = 1;
+    				
+    				
+    function __construct($data, $smarty = null)
+    {
+        // set instance object
+        self::instance($this); 
+        $this->data = $data . "\n"; //now all lines are \n-terminated
+        $this->counter = 0;
+        $this->line = 1;
+        $this->smarty = $smarty; 
+     }
+    public static function &instance($new_instance = null)
+    {
+        static $instance = null;
+        if (isset($new_instance) && is_object($new_instance))
+            $instance = $new_instance;
+        return $instance;
+    } 
+
+
+/*!lex2php
+%input $this->data
+%counter $this->counter
+%token $this->token
+%value $this->value
+%line $this->line
+num = /\d+(?:\.\d+)?/
+id = /\$[a-zA-Z_]+/
+dquote_string = /"[^"\\]*(?:\\.[^"\\]*)*"(?=[ \t\r]*[\n;\)])/
+include = /@include\s+url/
+mixin_name = /@[a-zA-Z_]\w+/
+plus = "+"
+colon = ":"
+assign = "="
+eq = "=="
+gt = ">"
+lt = "<"
+lparen = "("
+rparen = ")"
+lbrace = "{"
+rbrace = "}"
+if = "@if"
+else = "@else"
+semi_colon = ";"
+newline = /\n/
+ws = /[\t\r ]/
+mixin_content = /[^\}]+/
+other = /.+/
+*/
+
+/*!lex2php
+%statename START
+
+plus {
+	echo "value: [$this->value]\n";
+	$this->token = FisCssParser::FISCSS_PLUS;
+    // $this->yypushstate(self::VALUE);
+}
+id {
+	echo "value: [$this->value]\n";
+	$this->token = FisCssParser::FISCSS_ID;
+    // $this->yypushstate(self::VALUE);
+}
+dquote_string {
+	echo "value: [$this->value]\n";
+	$this->token = FisCssParser::FISCSS_DQUOTE_STRING;
+    // $this->yypushstate(self::VALUE);
+}
+include {
+	echo "value: [$this->value]\n";
+	$this->token = FisCssParser::FISCSS_INCLUDE;
+    // $this->yypushstate(self::VALUE);
+}
+num {
+	echo "value: [$this->value]\n";
+	$this->token = FisCssParser::FISCSS_NUM;
+    // $this->yypushstate(self::VALUE);
+}
+colon {
+	echo "value: [$this->value]\n";
+	$this->token = FisCssParser::FISCSS_COLON;
+    // $this->yypushstate(self::VALUE);
+}
+gt {
+	echo "value: [$this->value]\n";
+	$this->token = FisCssParser::FISCSS_GT;
+    // $this->yypushstate(self::VALUE);
+}
+lt {
+	echo "value: [$this->value]\n";
+	$this->token = FisCssParser::FISCSS_LT;
+    // $this->yypushstate(self::VALUE);
+}
+lparen {
+	echo "value: [$this->value]\n";
+	$this->token = FisCssParser::FISCSS_LPAREN;
+    // $this->yypushstate(self::VALUE);
+}
+lbrace {
+	echo "value: [$this->value]\n";
+	$this->token = FisCssParser::FISCSS_LBRACE;
+    // $this->yypushstate(self::VALUE);
+}
+rbrace {
+	echo "value: [$this->value]\n";
+	$this->token = FisCssParser::FISCSS_RBRACE;
+    // $this->yypushstate(self::VALUE);
+}
+rparen {
+	echo "value: [$this->value]\n";
+	$this->token = FisCssParser::FISCSS_RPAREN;
+    // $this->yypushstate(self::VALUE);
+}
+if {
+	echo "value: [$this->value]\n";
+	$this->token = FisCssParser::FISCSS_IF;
+    // $this->yypushstate(self::VALUE);
+}
+else {
+	echo "value: [$this->value]\n";
+	$this->token = FisCssParser::FISCSS_ELSE;
+    // $this->yypushstate(self::VALUE);
+}
+mixin_name {
+	echo "value: [$this->value]\n";
+	$this->token = FisCssParser::FISCSS_MIXIN_NAME;
+    // $this->yypushstate(self::VALUE);
+}
+eq {
+	echo "value: [$this->value]\n";
+	$this->token = FisCssParser::FISCSS_EQ;
+    // $this->yypushstate(self::VALUE);
+}
+assign {
+	echo "value: [$this->value]\n";
+	$this->token = FisCssParser::FISCSS_ASSIGN;
+    // $this->yypushstate(self::VALUE);
+}
+semi_colon {
+	echo "value: [$this->value]\n";
+	$this->token = FisCssParser::FISCSS_SEMI_COLON;
+    // $this->yypushstate(self::VALUE);
+}
+newline {
+	// echo "value: [$this->value]\n";
+	// $this->token = CalcParser::CALC_NEWLINE;
+    // $this->yypushstate(self::VALUE);
+	return false;
+}
+ws {
+	// echo "value: [$this->value]\n";
+    return false;
+}
+mixin_content {
+	// echo "value: [$this->value]\n";
+	$this->token = FisCssParser::FISCSS_MIXIN_CONTENT;
+    // $this->yypushstate(self::VALUE);
+}
+other {
+	// echo "value: [$this->value]\n";
+	$this->token = FisCssParser::FISCSS_OTHER;
+    // return false;
+}
+
+*/
+}
+
+
+?>

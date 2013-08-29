@@ -1,0 +1,694 @@
+State 0:
+          prog ::= * stat_list
+          stat_list ::= * stat stat_list
+          stat_list ::= * IF LPAREN bool_expr RPAREN LBRACE stat_list RBRACE stat_list
+          stat_list ::= * IF LPAREN bool_expr RPAREN LBRACE stat_list RBRACE ELSE LBRACE stat_list RBRACE stat_list
+          stat_list ::= * mixin_declare stat_list
+          stat_list ::= * OTHER stat_list
+      (6) stat_list ::= *
+          stat ::= * ID COLON expr stat_end
+          stat ::= * INCLUDE LPAREN expr RPAREN stat_end
+          stat ::= * expr stat_end
+          stat ::= * mixin_execute stat_end
+          stat ::= * stat_end
+          stat_end ::= * SEMI_COLON
+          mixin_declare ::= * MIXIN_NAME LBRACE MIXIN_CONTENT RBRACE
+          mixin_execute ::= * MIXIN_NAME LPAREN RPAREN
+          expr ::= * expr PLUS expr
+          expr ::= * expr LT expr
+          expr ::= * expr GT expr
+          expr ::= * expr EQ expr
+          expr ::= * DQUOTE_STRING
+          expr ::= * NUM
+          expr ::= * ID
+
+                            IF shift  30
+                         OTHER shift  4
+                            ID shift  33
+                       INCLUDE shift  23
+                    SEMI_COLON shift  48
+                    MIXIN_NAME shift  21
+                 DQUOTE_STRING shift  51
+                           NUM shift  50
+                          prog accept
+                     stat_list shift  52
+                          stat shift  7
+                 mixin_declare shift  3
+                          expr shift  9
+                      stat_end shift  40
+                 mixin_execute shift  18
+                     {default} reduce 6
+
+State 1:
+          stat_list ::= * stat stat_list
+          stat_list ::= * IF LPAREN bool_expr RPAREN LBRACE stat_list RBRACE stat_list
+          stat_list ::= IF LPAREN bool_expr RPAREN LBRACE stat_list RBRACE * stat_list
+          stat_list ::= * IF LPAREN bool_expr RPAREN LBRACE stat_list RBRACE ELSE LBRACE stat_list RBRACE stat_list
+          stat_list ::= IF LPAREN bool_expr RPAREN LBRACE stat_list RBRACE * ELSE LBRACE stat_list RBRACE stat_list
+          stat_list ::= * mixin_declare stat_list
+          stat_list ::= * OTHER stat_list
+      (6) stat_list ::= *
+          stat ::= * ID COLON expr stat_end
+          stat ::= * INCLUDE LPAREN expr RPAREN stat_end
+          stat ::= * expr stat_end
+          stat ::= * mixin_execute stat_end
+          stat ::= * stat_end
+          stat_end ::= * SEMI_COLON
+          mixin_declare ::= * MIXIN_NAME LBRACE MIXIN_CONTENT RBRACE
+          mixin_execute ::= * MIXIN_NAME LPAREN RPAREN
+          expr ::= * expr PLUS expr
+          expr ::= * expr LT expr
+          expr ::= * expr GT expr
+          expr ::= * expr EQ expr
+          expr ::= * DQUOTE_STRING
+          expr ::= * NUM
+          expr ::= * ID
+
+                            IF shift  30
+                          ELSE shift  32
+                         OTHER shift  4
+                            ID shift  33
+                       INCLUDE shift  23
+                    SEMI_COLON shift  48
+                    MIXIN_NAME shift  21
+                 DQUOTE_STRING shift  51
+                           NUM shift  50
+                     stat_list shift  45
+                          stat shift  7
+                 mixin_declare shift  3
+                          expr shift  9
+                      stat_end shift  40
+                 mixin_execute shift  18
+                     {default} reduce 6
+
+State 2:
+          stat_list ::= * stat stat_list
+          stat_list ::= * IF LPAREN bool_expr RPAREN LBRACE stat_list RBRACE stat_list
+          stat_list ::= * IF LPAREN bool_expr RPAREN LBRACE stat_list RBRACE ELSE LBRACE stat_list RBRACE stat_list
+          stat_list ::= IF LPAREN bool_expr RPAREN LBRACE stat_list RBRACE ELSE LBRACE stat_list RBRACE * stat_list
+          stat_list ::= * mixin_declare stat_list
+          stat_list ::= * OTHER stat_list
+      (6) stat_list ::= *
+          stat ::= * ID COLON expr stat_end
+          stat ::= * INCLUDE LPAREN expr RPAREN stat_end
+          stat ::= * expr stat_end
+          stat ::= * mixin_execute stat_end
+          stat ::= * stat_end
+          stat_end ::= * SEMI_COLON
+          mixin_declare ::= * MIXIN_NAME LBRACE MIXIN_CONTENT RBRACE
+          mixin_execute ::= * MIXIN_NAME LPAREN RPAREN
+          expr ::= * expr PLUS expr
+          expr ::= * expr LT expr
+          expr ::= * expr GT expr
+          expr ::= * expr EQ expr
+          expr ::= * DQUOTE_STRING
+          expr ::= * NUM
+          expr ::= * ID
+
+                            IF shift  30
+                         OTHER shift  4
+                            ID shift  33
+                       INCLUDE shift  23
+                    SEMI_COLON shift  48
+                    MIXIN_NAME shift  21
+                 DQUOTE_STRING shift  51
+                           NUM shift  50
+                     stat_list shift  44
+                          stat shift  7
+                 mixin_declare shift  3
+                          expr shift  9
+                      stat_end shift  40
+                 mixin_execute shift  18
+                     {default} reduce 6
+
+State 3:
+          stat_list ::= * stat stat_list
+          stat_list ::= * IF LPAREN bool_expr RPAREN LBRACE stat_list RBRACE stat_list
+          stat_list ::= * IF LPAREN bool_expr RPAREN LBRACE stat_list RBRACE ELSE LBRACE stat_list RBRACE stat_list
+          stat_list ::= * mixin_declare stat_list
+          stat_list ::= mixin_declare * stat_list
+          stat_list ::= * OTHER stat_list
+      (6) stat_list ::= *
+          stat ::= * ID COLON expr stat_end
+          stat ::= * INCLUDE LPAREN expr RPAREN stat_end
+          stat ::= * expr stat_end
+          stat ::= * mixin_execute stat_end
+          stat ::= * stat_end
+          stat_end ::= * SEMI_COLON
+          mixin_declare ::= * MIXIN_NAME LBRACE MIXIN_CONTENT RBRACE
+          mixin_execute ::= * MIXIN_NAME LPAREN RPAREN
+          expr ::= * expr PLUS expr
+          expr ::= * expr LT expr
+          expr ::= * expr GT expr
+          expr ::= * expr EQ expr
+          expr ::= * DQUOTE_STRING
+          expr ::= * NUM
+          expr ::= * ID
+
+                            IF shift  30
+                         OTHER shift  4
+                            ID shift  33
+                       INCLUDE shift  23
+                    SEMI_COLON shift  48
+                    MIXIN_NAME shift  21
+                 DQUOTE_STRING shift  51
+                           NUM shift  50
+                     stat_list shift  42
+                          stat shift  7
+                 mixin_declare shift  3
+                          expr shift  9
+                      stat_end shift  40
+                 mixin_execute shift  18
+                     {default} reduce 6
+
+State 4:
+          stat_list ::= * stat stat_list
+          stat_list ::= * IF LPAREN bool_expr RPAREN LBRACE stat_list RBRACE stat_list
+          stat_list ::= * IF LPAREN bool_expr RPAREN LBRACE stat_list RBRACE ELSE LBRACE stat_list RBRACE stat_list
+          stat_list ::= * mixin_declare stat_list
+          stat_list ::= * OTHER stat_list
+          stat_list ::= OTHER * stat_list
+      (6) stat_list ::= *
+          stat ::= * ID COLON expr stat_end
+          stat ::= * INCLUDE LPAREN expr RPAREN stat_end
+          stat ::= * expr stat_end
+          stat ::= * mixin_execute stat_end
+          stat ::= * stat_end
+          stat_end ::= * SEMI_COLON
+          mixin_declare ::= * MIXIN_NAME LBRACE MIXIN_CONTENT RBRACE
+          mixin_execute ::= * MIXIN_NAME LPAREN RPAREN
+          expr ::= * expr PLUS expr
+          expr ::= * expr LT expr
+          expr ::= * expr GT expr
+          expr ::= * expr EQ expr
+          expr ::= * DQUOTE_STRING
+          expr ::= * NUM
+          expr ::= * ID
+
+                            IF shift  30
+                         OTHER shift  4
+                            ID shift  33
+                       INCLUDE shift  23
+                    SEMI_COLON shift  48
+                    MIXIN_NAME shift  21
+                 DQUOTE_STRING shift  51
+                           NUM shift  50
+                     stat_list shift  43
+                          stat shift  7
+                 mixin_declare shift  3
+                          expr shift  9
+                      stat_end shift  40
+                 mixin_execute shift  18
+                     {default} reduce 6
+
+State 5:
+          stat_list ::= * stat stat_list
+          stat_list ::= * IF LPAREN bool_expr RPAREN LBRACE stat_list RBRACE stat_list
+          stat_list ::= IF LPAREN bool_expr RPAREN LBRACE * stat_list RBRACE stat_list
+          stat_list ::= * IF LPAREN bool_expr RPAREN LBRACE stat_list RBRACE ELSE LBRACE stat_list RBRACE stat_list
+          stat_list ::= IF LPAREN bool_expr RPAREN LBRACE * stat_list RBRACE ELSE LBRACE stat_list RBRACE stat_list
+          stat_list ::= * mixin_declare stat_list
+          stat_list ::= * OTHER stat_list
+      (6) stat_list ::= *
+          stat ::= * ID COLON expr stat_end
+          stat ::= * INCLUDE LPAREN expr RPAREN stat_end
+          stat ::= * expr stat_end
+          stat ::= * mixin_execute stat_end
+          stat ::= * stat_end
+          stat_end ::= * SEMI_COLON
+          mixin_declare ::= * MIXIN_NAME LBRACE MIXIN_CONTENT RBRACE
+          mixin_execute ::= * MIXIN_NAME LPAREN RPAREN
+          expr ::= * expr PLUS expr
+          expr ::= * expr LT expr
+          expr ::= * expr GT expr
+          expr ::= * expr EQ expr
+          expr ::= * DQUOTE_STRING
+          expr ::= * NUM
+          expr ::= * ID
+
+                            IF shift  30
+                         OTHER shift  4
+                            ID shift  33
+                       INCLUDE shift  23
+                    SEMI_COLON shift  48
+                    MIXIN_NAME shift  21
+                 DQUOTE_STRING shift  51
+                           NUM shift  50
+                     stat_list shift  27
+                          stat shift  7
+                 mixin_declare shift  3
+                          expr shift  9
+                      stat_end shift  40
+                 mixin_execute shift  18
+                     {default} reduce 6
+
+State 6:
+          stat_list ::= * stat stat_list
+          stat_list ::= * IF LPAREN bool_expr RPAREN LBRACE stat_list RBRACE stat_list
+          stat_list ::= * IF LPAREN bool_expr RPAREN LBRACE stat_list RBRACE ELSE LBRACE stat_list RBRACE stat_list
+          stat_list ::= IF LPAREN bool_expr RPAREN LBRACE stat_list RBRACE ELSE LBRACE * stat_list RBRACE stat_list
+          stat_list ::= * mixin_declare stat_list
+          stat_list ::= * OTHER stat_list
+      (6) stat_list ::= *
+          stat ::= * ID COLON expr stat_end
+          stat ::= * INCLUDE LPAREN expr RPAREN stat_end
+          stat ::= * expr stat_end
+          stat ::= * mixin_execute stat_end
+          stat ::= * stat_end
+          stat_end ::= * SEMI_COLON
+          mixin_declare ::= * MIXIN_NAME LBRACE MIXIN_CONTENT RBRACE
+          mixin_execute ::= * MIXIN_NAME LPAREN RPAREN
+          expr ::= * expr PLUS expr
+          expr ::= * expr LT expr
+          expr ::= * expr GT expr
+          expr ::= * expr EQ expr
+          expr ::= * DQUOTE_STRING
+          expr ::= * NUM
+          expr ::= * ID
+
+                            IF shift  30
+                         OTHER shift  4
+                            ID shift  33
+                       INCLUDE shift  23
+                    SEMI_COLON shift  48
+                    MIXIN_NAME shift  21
+                 DQUOTE_STRING shift  51
+                           NUM shift  50
+                     stat_list shift  31
+                          stat shift  7
+                 mixin_declare shift  3
+                          expr shift  9
+                      stat_end shift  40
+                 mixin_execute shift  18
+                     {default} reduce 6
+
+State 7:
+          stat_list ::= * stat stat_list
+          stat_list ::= stat * stat_list
+          stat_list ::= * IF LPAREN bool_expr RPAREN LBRACE stat_list RBRACE stat_list
+          stat_list ::= * IF LPAREN bool_expr RPAREN LBRACE stat_list RBRACE ELSE LBRACE stat_list RBRACE stat_list
+          stat_list ::= * mixin_declare stat_list
+          stat_list ::= * OTHER stat_list
+      (6) stat_list ::= *
+          stat ::= * ID COLON expr stat_end
+          stat ::= * INCLUDE LPAREN expr RPAREN stat_end
+          stat ::= * expr stat_end
+          stat ::= * mixin_execute stat_end
+          stat ::= * stat_end
+          stat_end ::= * SEMI_COLON
+          mixin_declare ::= * MIXIN_NAME LBRACE MIXIN_CONTENT RBRACE
+          mixin_execute ::= * MIXIN_NAME LPAREN RPAREN
+          expr ::= * expr PLUS expr
+          expr ::= * expr LT expr
+          expr ::= * expr GT expr
+          expr ::= * expr EQ expr
+          expr ::= * DQUOTE_STRING
+          expr ::= * NUM
+          expr ::= * ID
+
+                            IF shift  30
+                         OTHER shift  4
+                            ID shift  33
+                       INCLUDE shift  23
+                    SEMI_COLON shift  48
+                    MIXIN_NAME shift  21
+                 DQUOTE_STRING shift  51
+                           NUM shift  50
+                     stat_list shift  46
+                          stat shift  7
+                 mixin_declare shift  3
+                          expr shift  9
+                      stat_end shift  40
+                 mixin_execute shift  18
+                     {default} reduce 6
+
+State 8:
+          stat_list ::= IF LPAREN * bool_expr RPAREN LBRACE stat_list RBRACE stat_list
+          stat_list ::= IF LPAREN * bool_expr RPAREN LBRACE stat_list RBRACE ELSE LBRACE stat_list RBRACE stat_list
+          bool_expr ::= * expr
+          expr ::= * expr PLUS expr
+          expr ::= * expr LT expr
+          expr ::= * expr GT expr
+          expr ::= * expr EQ expr
+          expr ::= * DQUOTE_STRING
+          expr ::= * NUM
+          expr ::= * ID
+
+                            ID shift  49
+                 DQUOTE_STRING shift  51
+                           NUM shift  50
+                     bool_expr shift  29
+                          expr shift  20
+
+State 9:
+          stat ::= expr * stat_end
+          stat_end ::= * SEMI_COLON
+          expr ::= expr * PLUS expr
+          expr ::= expr * LT expr
+          expr ::= expr * GT expr
+          expr ::= expr * EQ expr
+
+                            EQ shift  14
+                            GT shift  12
+                            LT shift  16
+                          PLUS shift  15
+                    SEMI_COLON shift  48
+                      stat_end shift  37
+
+State 10:
+          stat ::= ID COLON expr * stat_end
+          stat_end ::= * SEMI_COLON
+          expr ::= expr * PLUS expr
+          expr ::= expr * LT expr
+          expr ::= expr * GT expr
+          expr ::= expr * EQ expr
+
+                            EQ shift  14
+                            GT shift  12
+                            LT shift  16
+                          PLUS shift  15
+                    SEMI_COLON shift  48
+                      stat_end shift  47
+
+State 11:
+          stat ::= INCLUDE LPAREN * expr RPAREN stat_end
+          expr ::= * expr PLUS expr
+          expr ::= * expr LT expr
+          expr ::= * expr GT expr
+          expr ::= * expr EQ expr
+          expr ::= * DQUOTE_STRING
+          expr ::= * NUM
+          expr ::= * ID
+
+                            ID shift  49
+                 DQUOTE_STRING shift  51
+                           NUM shift  50
+                          expr shift  19
+
+State 12:
+          expr ::= * expr PLUS expr
+          expr ::= * expr LT expr
+          expr ::= * expr GT expr
+          expr ::= expr GT * expr
+          expr ::= * expr EQ expr
+          expr ::= * DQUOTE_STRING
+          expr ::= * NUM
+          expr ::= * ID
+
+                            ID shift  49
+                 DQUOTE_STRING shift  51
+                           NUM shift  50
+                          expr shift  22
+
+State 13:
+          stat ::= ID COLON * expr stat_end
+          expr ::= * expr PLUS expr
+          expr ::= * expr LT expr
+          expr ::= * expr GT expr
+          expr ::= * expr EQ expr
+          expr ::= * DQUOTE_STRING
+          expr ::= * NUM
+          expr ::= * ID
+
+                            ID shift  49
+                 DQUOTE_STRING shift  51
+                           NUM shift  50
+                          expr shift  10
+
+State 14:
+          expr ::= * expr PLUS expr
+          expr ::= * expr LT expr
+          expr ::= * expr GT expr
+          expr ::= * expr EQ expr
+          expr ::= expr EQ * expr
+          expr ::= * DQUOTE_STRING
+          expr ::= * NUM
+          expr ::= * ID
+
+                            ID shift  49
+                 DQUOTE_STRING shift  51
+                           NUM shift  50
+                          expr shift  24
+
+State 15:
+          expr ::= * expr PLUS expr
+          expr ::= expr PLUS * expr
+          expr ::= * expr LT expr
+          expr ::= * expr GT expr
+          expr ::= * expr EQ expr
+          expr ::= * DQUOTE_STRING
+          expr ::= * NUM
+          expr ::= * ID
+
+                            ID shift  49
+                 DQUOTE_STRING shift  51
+                           NUM shift  50
+                          expr shift  41
+
+State 16:
+          expr ::= * expr PLUS expr
+          expr ::= * expr LT expr
+          expr ::= expr LT * expr
+          expr ::= * expr GT expr
+          expr ::= * expr EQ expr
+          expr ::= * DQUOTE_STRING
+          expr ::= * NUM
+          expr ::= * ID
+
+                            ID shift  49
+                 DQUOTE_STRING shift  51
+                           NUM shift  50
+                          expr shift  25
+
+State 17:
+          stat ::= INCLUDE LPAREN expr RPAREN * stat_end
+          stat_end ::= * SEMI_COLON
+
+                    SEMI_COLON shift  48
+                      stat_end shift  53
+
+State 18:
+          stat ::= mixin_execute * stat_end
+          stat_end ::= * SEMI_COLON
+
+                    SEMI_COLON shift  48
+                      stat_end shift  38
+
+State 19:
+          stat ::= INCLUDE LPAREN expr * RPAREN stat_end
+          expr ::= expr * PLUS expr
+          expr ::= expr * LT expr
+          expr ::= expr * GT expr
+          expr ::= expr * EQ expr
+
+                            EQ shift  14
+                            GT shift  12
+                            LT shift  16
+                          PLUS shift  15
+                        RPAREN shift  17
+
+State 20:
+     (13) bool_expr ::= expr *
+          expr ::= expr * PLUS expr
+          expr ::= expr * LT expr
+          expr ::= expr * GT expr
+          expr ::= expr * EQ expr
+
+                            EQ shift  14
+                            GT shift  12
+                            LT shift  16
+                          PLUS shift  15
+                     {default} reduce 13
+
+State 21:
+          mixin_declare ::= MIXIN_NAME * LBRACE MIXIN_CONTENT RBRACE
+          mixin_execute ::= MIXIN_NAME * LPAREN RPAREN
+
+                        LPAREN shift  35
+                        LBRACE shift  34
+
+State 22:
+          expr ::= expr * PLUS expr
+          expr ::= expr * LT expr
+          expr ::= expr * GT expr
+     (18) expr ::= expr GT expr *
+          expr ::= expr * EQ expr
+
+                          PLUS shift  15
+                     {default} reduce 18
+
+State 23:
+          stat ::= INCLUDE * LPAREN expr RPAREN stat_end
+
+                        LPAREN shift  11
+
+State 24:
+          expr ::= expr * PLUS expr
+          expr ::= expr * LT expr
+          expr ::= expr * GT expr
+          expr ::= expr * EQ expr
+     (19) expr ::= expr EQ expr *
+
+                          PLUS shift  15
+                     {default} reduce 19
+
+State 25:
+          expr ::= expr * PLUS expr
+          expr ::= expr * LT expr
+     (17) expr ::= expr LT expr *
+          expr ::= expr * GT expr
+          expr ::= expr * EQ expr
+
+                          PLUS shift  15
+                     {default} reduce 17
+
+State 26:
+          mixin_declare ::= MIXIN_NAME LBRACE MIXIN_CONTENT * RBRACE
+
+                        RBRACE shift  36
+
+State 27:
+          stat_list ::= IF LPAREN bool_expr RPAREN LBRACE stat_list * RBRACE stat_list
+          stat_list ::= IF LPAREN bool_expr RPAREN LBRACE stat_list * RBRACE ELSE LBRACE stat_list RBRACE stat_list
+
+                        RBRACE shift  1
+
+State 28:
+          stat_list ::= IF LPAREN bool_expr RPAREN * LBRACE stat_list RBRACE stat_list
+          stat_list ::= IF LPAREN bool_expr RPAREN * LBRACE stat_list RBRACE ELSE LBRACE stat_list RBRACE stat_list
+
+                        LBRACE shift  5
+
+State 29:
+          stat_list ::= IF LPAREN bool_expr * RPAREN LBRACE stat_list RBRACE stat_list
+          stat_list ::= IF LPAREN bool_expr * RPAREN LBRACE stat_list RBRACE ELSE LBRACE stat_list RBRACE stat_list
+
+                        RPAREN shift  28
+
+State 30:
+          stat_list ::= IF * LPAREN bool_expr RPAREN LBRACE stat_list RBRACE stat_list
+          stat_list ::= IF * LPAREN bool_expr RPAREN LBRACE stat_list RBRACE ELSE LBRACE stat_list RBRACE stat_list
+
+                        LPAREN shift  8
+
+State 31:
+          stat_list ::= IF LPAREN bool_expr RPAREN LBRACE stat_list RBRACE ELSE LBRACE stat_list * RBRACE stat_list
+
+                        RBRACE shift  2
+
+State 32:
+          stat_list ::= IF LPAREN bool_expr RPAREN LBRACE stat_list RBRACE ELSE * LBRACE stat_list RBRACE stat_list
+
+                        LBRACE shift  6
+
+State 33:
+          stat ::= ID * COLON expr stat_end
+     (22) expr ::= ID *
+
+                         COLON shift  13
+                     {default} reduce 22
+
+State 34:
+          mixin_declare ::= MIXIN_NAME LBRACE * MIXIN_CONTENT RBRACE
+
+                 MIXIN_CONTENT shift  26
+
+State 35:
+          mixin_execute ::= MIXIN_NAME LPAREN * RPAREN
+
+                        RPAREN shift  39
+
+State 36:
+     (14) mixin_declare ::= MIXIN_NAME LBRACE MIXIN_CONTENT RBRACE *
+
+                     {default} reduce 14
+
+State 37:
+      (9) stat ::= expr stat_end *
+
+                     {default} reduce 9
+
+State 38:
+     (10) stat ::= mixin_execute stat_end *
+
+                     {default} reduce 10
+
+State 39:
+     (15) mixin_execute ::= MIXIN_NAME LPAREN RPAREN *
+
+                     {default} reduce 15
+
+State 40:
+     (11) stat ::= stat_end *
+
+                     {default} reduce 11
+
+State 41:
+          expr ::= expr * PLUS expr
+     (16) expr ::= expr PLUS expr *
+          expr ::= expr * LT expr
+          expr ::= expr * GT expr
+          expr ::= expr * EQ expr
+
+                     {default} reduce 16
+
+State 42:
+      (4) stat_list ::= mixin_declare stat_list *
+
+                     {default} reduce 4
+
+State 43:
+      (5) stat_list ::= OTHER stat_list *
+
+                     {default} reduce 5
+
+State 44:
+      (3) stat_list ::= IF LPAREN bool_expr RPAREN LBRACE stat_list RBRACE ELSE LBRACE stat_list RBRACE stat_list *
+
+                     {default} reduce 3
+
+State 45:
+      (2) stat_list ::= IF LPAREN bool_expr RPAREN LBRACE stat_list RBRACE stat_list *
+
+                     {default} reduce 2
+
+State 46:
+      (1) stat_list ::= stat stat_list *
+
+                     {default} reduce 1
+
+State 47:
+      (7) stat ::= ID COLON expr stat_end *
+
+                     {default} reduce 7
+
+State 48:
+     (12) stat_end ::= SEMI_COLON *
+
+                     {default} reduce 12
+
+State 49:
+     (22) expr ::= ID *
+
+                     {default} reduce 22
+
+State 50:
+     (21) expr ::= NUM *
+
+                     {default} reduce 21
+
+State 51:
+     (20) expr ::= DQUOTE_STRING *
+
+                     {default} reduce 20
+
+State 52:
+      (0) prog ::= stat_list *
+
+                     {default} reduce 0
+
+State 53:
+      (8) stat ::= INCLUDE LPAREN expr RPAREN stat_end *
+
+                     {default} reduce 8
+

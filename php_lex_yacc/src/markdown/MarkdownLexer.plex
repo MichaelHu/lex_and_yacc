@@ -1,0 +1,392 @@
+<?php
+/**
+* MarkdownFileLexer
+*
+* This is the lexer to break the markdown file source into tokens 
+* @author hudamin@baidu.com 
+*/
+class MarkdownLexer
+{
+
+    public $data;
+    public $counter;
+    public $token;
+    public $value;
+    public $node;
+    public $line;
+    private $state = 1;
+    private $mbstring_overload = false;
+    				
+    				
+    function __construct($data, $smarty = null)
+    {
+        // set instance object
+        self::instance($this); 
+        // $this->data = $data . "\n"; //now all lines are \n-terminated
+        $this->data = $data;
+        $this->counter = 0;
+        $this->line = 1;
+     }
+    public static function &instance($new_instance = null)
+    {
+        static $instance = null;
+        if (isset($new_instance) && is_object($new_instance))
+            $instance = $new_instance;
+        return $instance;
+    } 
+
+    public function showstate(){
+        echo "state: " . $this->_yy_state . "\n";
+    }
+
+
+/*!lex2php
+%input $this->data
+%counter $this->counter
+%token $this->token
+%value $this->value
+%line $this->line
+docinfo_start = /% */
+headline_start = /#+ */
+paragraph_start = /(\r?\n)+/
+ul_start = /\* +/
+ol_start = /[1-9]+\. /
+emphasis = "**"
+codeline_start = /\t| {4}/
+image_start = "!["
+image_inner = "]("
+image_end = ")"
+link_start = "["
+link_inner = "]("
+link_end = ")"
+backslash = "\\"
+escapedchar = /[\[\\]/
+non_escapedchar = /[^\[\\]/
+text = /[^\r\n\*\[\\]+/
+codetext = /[^\r\n]+/
+imagetext = /[^\r\n\]\)]+/
+linktext = /[^\r\n\]\)]+/
+asterisk = "*"
+linebreak = /\r?\n/
+*/
+
+/*!lex2php
+%statename START
+
+docinfo_start {
+    $this->token = MarkdownParser::MARKDOWN_DOCINFO_START;
+
+    // context-related grammar, enter new state: READDOCINFO 
+    $this->yypushstate(self::READDOCINFO);
+}
+
+headline_start {
+    $this->token = MarkdownParser::MARKDOWN_HEADLINE_START;
+
+    // context-related grammar, enter new state: READTEXT 
+    $this->yypushstate(self::READTEXT);
+}
+
+paragraph_start {
+	$this->token = MarkdownParser::MARKDOWN_PARAGRAPH_START;
+}
+
+ul_start {
+    $this->token = MarkdownParser::MARKDOWN_UL_START;
+
+    // context-related grammar, enter new state: TEXT 
+    $this->yypushstate(self::TEXT);
+}
+
+ol_start {
+    $this->token = MarkdownParser::MARKDOWN_OL_START;
+
+    // context-related grammar, enter new state: TEXT 
+    $this->yypushstate(self::TEXT);
+}
+
+emphasis {
+    $this->token = MarkdownParser::MARKDOWN_EMPHASIS;
+
+    // context-related grammar, enter new state: READEMPHASISTEXT 
+    $this->yypushstate(self::READEMPHASISTEXT);
+}
+
+codeline_start {
+	$this->token = MarkdownParser::MARKDOWN_CODELINE_START;
+
+    // context-related grammar, enter new state: READCODETEXT 
+    $this->yypushstate(self::READCODETEXT);
+}
+
+image_start {
+	$this->token = MarkdownParser::MARKDOWN_IMAGE_START;
+
+    // context-related grammar, enter new state: READIMAGE 
+    $this->yypushstate(self::READIMAGE);
+}
+
+link_start {
+    // link mode
+	$this->token = MarkdownParser::MARKDOWN_LINK_START;
+
+    // context-related grammar, enter new state: READLINK 
+    $this->yypushstate(self::READLINK);
+}
+
+backslash {
+    // escape mode
+	$this->token = MarkdownParser::MARKDOWN_BACKSLASH;
+
+    // context-related grammar, enter new state: READESCAPE 
+    $this->yypushstate(self::READESCAPE);
+}
+
+text {
+    // text mode
+	$this->token = MarkdownParser::MARKDOWN_TEXT;
+
+    // context-related grammar, enter new state: TEXT 
+    $this->yypushstate(self::TEXT);
+}
+
+asterisk {
+    // text mode
+	$this->token = MarkdownParser::MARKDOWN_ASTERISK;
+
+    // context-related grammar, enter new state: TEXT 
+    $this->yypushstate(self::TEXT);
+}
+
+linebreak {
+    // @note: false to skip current token -- parser will ignore it -- and cycle to next token
+    return false;
+}
+
+*/
+
+/*!lex2php
+%statename READTEXT
+
+text {
+	$this->token = MarkdownParser::MARKDOWN_TEXT;
+    // @note: no return to accept current token -- parser will take it -- and cycle to next token 
+}
+
+paragraph_start {
+    // 文本后面可能紧接着两个换行，但也得支持紧跟一个换行的情况
+    // @note: 先于linebreak匹配
+	$this->token = MarkdownParser::MARKDOWN_PARAGRAPH_START;
+    // return to START state 
+    $this->yypopstate();
+}
+
+linebreak {
+    // 此时换行视为段落起始token
+	$this->token = MarkdownParser::MARKDOWN_PARAGRAPH_START;
+    // return to START state 
+    $this->yypopstate();
+}
+
+*/
+
+/*!lex2php
+%statename TEXT
+
+emphasis {
+    $this->token = MarkdownParser::MARKDOWN_EMPHASIS;
+    $this->yypushstate(self::READEMPHASISTEXT);
+}
+
+asterisk {
+    $this->token = MarkdownParser::MARKDOWN_ASTERISK;    
+}
+
+link_start {
+	$this->token = MarkdownParser::MARKDOWN_LINK_START;
+
+    // context-related grammar, enter new state: READLINK 
+    $this->yypushstate(self::READLINK);
+}
+
+backslash {
+    /**
+     * @note: 只在paragraph中考虑反斜线转义，code中的反斜线不转义 
+     */
+
+	$this->token = MarkdownParser::MARKDOWN_BACKSLASH;
+
+    // context-related grammar, enter new state: READESCAPE 
+    $this->yypushstate(self::READESCAPE);
+}
+
+text {
+	$this->token = MarkdownParser::MARKDOWN_TEXT;
+}
+
+paragraph_start {
+    // 文本后面可能紧接着两个换行，但也得支持紧跟一个换行的情况
+    // @note: 先于linebreak匹配
+	$this->token = MarkdownParser::MARKDOWN_PARAGRAPH_START;
+    // return to START state 
+    $this->yypopstate();
+}
+
+linebreak {
+    // 此时换行视为段落起始token
+	$this->token = MarkdownParser::MARKDOWN_PARAGRAPH_START;
+    // return to START state 
+    $this->yypopstate();
+}
+
+*/
+
+/*!lex2php
+%statename READDOCINFO
+
+text {
+	$this->token = MarkdownParser::MARKDOWN_TEXT;
+}
+
+linebreak {
+    /**
+     * @note: !! return false cannot exist together with yypushstate, yypopstate or yybegin 
+     */
+	$this->token = MarkdownParser::MARKDOWN_DOCINFOLINE_END;
+    $this->yypopstate();
+}
+
+*/
+
+/*!lex2php
+%statename READEMPHASISTEXT
+
+emphasis {
+    $this->token = MarkdownParser::MARKDOWN_EMPHASIS;
+    $this->yypopstate();
+}
+
+text {
+	$this->token = MarkdownParser::MARKDOWN_TEXT;
+}
+
+
+*/
+
+/*!lex2php
+%statename READCODETEXT
+
+codetext {
+	$this->token = MarkdownParser::MARKDOWN_CODETEXT;
+    // @note: no return to accept current token -- parser will take it -- and cycle to next token 
+}
+
+paragraph_start {
+    // 文本后面可能紧接着两个换行，但也得支持紧跟一个换行的情况
+    // @note: 先于linebreak匹配
+	$this->token = MarkdownParser::MARKDOWN_PARAGRAPH_START;
+    // return to START state 
+    $this->yypopstate();
+}
+
+linebreak {
+    // 此时换行视为段落起始token
+	$this->token = MarkdownParser::MARKDOWN_PARAGRAPH_START;
+    // return to START state 
+    $this->yypopstate();
+}
+
+*/
+
+/*!lex2php
+%statename READIMAGE
+
+imagetext {
+	$this->token = MarkdownParser::MARKDOWN_IMAGETEXT;
+    // @note: no return to accept current token -- parser will take it -- and cycle to next token 
+}
+
+image_inner {
+	$this->token = MarkdownParser::MARKDOWN_IMAGE_INNER;
+    $this->yypushstate(self::READIMAGEPATH);
+    // @note: no return to accept current token -- parser will take it -- and cycle to next token 
+}
+
+image_end {
+	$this->token = MarkdownParser::MARKDOWN_IMAGE_END;
+    // return to START state 
+    $this->yypopstate();
+}
+
+*/
+
+/*!lex2php
+%statename READIMAGEPATH
+
+imagetext {
+	$this->token = MarkdownParser::MARKDOWN_IMAGETEXT;
+    // @note: no return to accept current token -- parser will take it -- and cycle to next token 
+    // return to READIMAGE state 
+    $this->yypopstate();
+}
+
+*/
+
+/*!lex2php
+%statename READLINK
+
+linktext {
+	$this->token = MarkdownParser::MARKDOWN_LINKTEXT;
+    // @note: no return to accept current token -- parser will take it -- and cycle to next token 
+}
+
+link_inner {
+	$this->token = MarkdownParser::MARKDOWN_LINK_INNER;
+    $this->yypushstate(self::READLINKHREF);
+    // @note: no return to accept current token -- parser will take it -- and cycle to next token 
+}
+
+link_end {
+	$this->token = MarkdownParser::MARKDOWN_LINK_END;
+    // return to START state 
+    $this->yypopstate();
+}
+
+*/
+
+/*!lex2php
+%statename READLINKHREF
+
+linktext {
+	$this->token = MarkdownParser::MARKDOWN_LINKTEXT;
+    // @note: no return to accept current token -- parser will take it -- and cycle to next token 
+    // return to READIMAGE state 
+    $this->yypopstate();
+}
+
+*/
+
+/*!lex2php
+%statename READESCAPE
+
+escapedchar {
+	$this->token = MarkdownParser::MARKDOWN_ESCAPEDCHAR;
+    // @note: no return to accept current token -- parser will take it -- and cycle to next token 
+    // return to READIMAGE state 
+    $this->yypopstate();
+}
+
+non_escapedchar {
+	$this->token = MarkdownParser::MARKDOWN_NON_ESCAPEDCHAR;
+    // @note: no return to accept current token -- parser will take it -- and cycle to next token 
+    // return to READIMAGE state 
+    $this->yypopstate();
+}
+
+*/
+
+
+}
+
+?>
+

@@ -1,0 +1,25 @@
+$a : 1
+;
+@include url("abc.inc");
+$c_b : 123;
+$c_b;
+
+$ok: "yes!!";
+$no: "no!!\"";
+
+@abc {
+	color: #345;
+}
+
+@if ($a == 1){
+	$ok;	
+	@if ($c_b == 123){
+		$ok;
+	}
+}
+@else{
+	$no;
+}
+
+
+@abc();

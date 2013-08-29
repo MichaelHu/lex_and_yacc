@@ -1,0 +1,965 @@
+State 0:
+          start ::= * markdownfile
+          markdownfile ::= * docinfo paragraphs
+          docinfo ::= * docinfo_line otherdocinfo
+          docinfo_line ::= * DOCINFO_START TEXT docinfo_lineend
+
+                 DOCINFO_START shift  46
+                         start accept
+                  markdownfile shift  76
+                       docinfo shift  39
+                  docinfo_line shift  30
+
+State 1:
+          paragraph ::= PARAGRAPH_START * text
+          paragraph ::= PARAGRAPH_START * codelines
+          paragraph ::= PARAGRAPH_START * ul
+          paragraph ::= PARAGRAPH_START * ol
+          paragraph ::= PARAGRAPH_START * headline
+          paragraph ::= PARAGRAPH_START * image
+          paragraph ::= PARAGRAPH_START * emptytext
+     (17) emptytext ::= *
+          text ::= * emphasis_text text_other
+          text ::= * link text_other
+          text ::= * ASTERISK text_other
+          text ::= * escape text_other
+          text ::= * TEXT text_other
+          emphasis_text ::= * EMPHASIS TEXT EMPHASIS
+          link ::= * LINK_START LINKTEXT LINK_INNER LINKTEXT LINK_END
+          escape ::= * BACKSLASH ESCAPEDCHAR
+          escape ::= * BACKSLASH NON_ESCAPEDCHAR
+          codelines ::= * codeline othercodelines
+          codeline ::= * CODELINE_START code
+          ul ::= * UL_START ul_li remain_ul
+          ol ::= * OL_START ol_li remain_ol
+          headline ::= * HEADLINE_START TEXT
+          image ::= * IMAGE_START IMAGETEXT IMAGE_INNER IMAGETEXT IMAGE_END
+
+                          TEXT shift  8
+                      ASTERISK shift  10
+                      EMPHASIS shift  49
+                    LINK_START shift  44
+                     BACKSLASH shift  40
+                CODELINE_START shift  33
+                      UL_START shift  27
+                      OL_START shift  22
+                HEADLINE_START shift  43
+                   IMAGE_START shift  42
+                          text shift  54
+                     codelines shift  58
+                            ul shift  59
+                            ol shift  62
+                      headline shift  92
+                         image shift  91
+                     emptytext shift  88
+                 emphasis_text shift  11
+                          link shift  9
+                        escape shift  7
+                      codeline shift  31
+                     {default} reduce 17
+
+State 2:
+          text_other ::= * emphasis_text text_other
+          text_other ::= * link text_other
+          text_other ::= * ASTERISK text_other
+          text_other ::= ASTERISK * text_other
+          text_other ::= * escape text_other
+          text_other ::= * TEXT text_other
+     (28) text_other ::= *
+          emphasis_text ::= * EMPHASIS TEXT EMPHASIS
+          link ::= * LINK_START LINKTEXT LINK_INNER LINKTEXT LINK_END
+          escape ::= * BACKSLASH ESCAPEDCHAR
+          escape ::= * BACKSLASH NON_ESCAPEDCHAR
+
+                          TEXT shift  6
+                      ASTERISK shift  2
+                      EMPHASIS shift  49
+                    LINK_START shift  44
+                     BACKSLASH shift  40
+                 emphasis_text shift  4
+                    text_other shift  96
+                          link shift  3
+                        escape shift  5
+                     {default} reduce 28
+
+State 3:
+          text_other ::= * emphasis_text text_other
+          text_other ::= * link text_other
+          text_other ::= link * text_other
+          text_other ::= * ASTERISK text_other
+          text_other ::= * escape text_other
+          text_other ::= * TEXT text_other
+     (28) text_other ::= *
+          emphasis_text ::= * EMPHASIS TEXT EMPHASIS
+          link ::= * LINK_START LINKTEXT LINK_INNER LINKTEXT LINK_END
+          escape ::= * BACKSLASH ESCAPEDCHAR
+          escape ::= * BACKSLASH NON_ESCAPEDCHAR
+
+                          TEXT shift  6
+                      ASTERISK shift  2
+                      EMPHASIS shift  49
+                    LINK_START shift  44
+                     BACKSLASH shift  40
+                 emphasis_text shift  4
+                    text_other shift  99
+                          link shift  3
+                        escape shift  5
+                     {default} reduce 28
+
+State 4:
+          text_other ::= * emphasis_text text_other
+          text_other ::= emphasis_text * text_other
+          text_other ::= * link text_other
+          text_other ::= * ASTERISK text_other
+          text_other ::= * escape text_other
+          text_other ::= * TEXT text_other
+     (28) text_other ::= *
+          emphasis_text ::= * EMPHASIS TEXT EMPHASIS
+          link ::= * LINK_START LINKTEXT LINK_INNER LINKTEXT LINK_END
+          escape ::= * BACKSLASH ESCAPEDCHAR
+          escape ::= * BACKSLASH NON_ESCAPEDCHAR
+
+                          TEXT shift  6
+                      ASTERISK shift  2
+                      EMPHASIS shift  49
+                    LINK_START shift  44
+                     BACKSLASH shift  40
+                 emphasis_text shift  4
+                    text_other shift  95
+                          link shift  3
+                        escape shift  5
+                     {default} reduce 28
+
+State 5:
+          text_other ::= * emphasis_text text_other
+          text_other ::= * link text_other
+          text_other ::= * ASTERISK text_other
+          text_other ::= * escape text_other
+          text_other ::= escape * text_other
+          text_other ::= * TEXT text_other
+     (28) text_other ::= *
+          emphasis_text ::= * EMPHASIS TEXT EMPHASIS
+          link ::= * LINK_START LINKTEXT LINK_INNER LINKTEXT LINK_END
+          escape ::= * BACKSLASH ESCAPEDCHAR
+          escape ::= * BACKSLASH NON_ESCAPEDCHAR
+
+                          TEXT shift  6
+                      ASTERISK shift  2
+                      EMPHASIS shift  49
+                    LINK_START shift  44
+                     BACKSLASH shift  40
+                 emphasis_text shift  4
+                    text_other shift  87
+                          link shift  3
+                        escape shift  5
+                     {default} reduce 28
+
+State 6:
+          text_other ::= * emphasis_text text_other
+          text_other ::= * link text_other
+          text_other ::= * ASTERISK text_other
+          text_other ::= * escape text_other
+          text_other ::= * TEXT text_other
+          text_other ::= TEXT * text_other
+     (28) text_other ::= *
+          emphasis_text ::= * EMPHASIS TEXT EMPHASIS
+          link ::= * LINK_START LINKTEXT LINK_INNER LINKTEXT LINK_END
+          escape ::= * BACKSLASH ESCAPEDCHAR
+          escape ::= * BACKSLASH NON_ESCAPEDCHAR
+
+                          TEXT shift  6
+                      ASTERISK shift  2
+                      EMPHASIS shift  49
+                    LINK_START shift  44
+                     BACKSLASH shift  40
+                 emphasis_text shift  4
+                    text_other shift  78
+                          link shift  3
+                        escape shift  5
+                     {default} reduce 28
+
+State 7:
+          text ::= escape * text_other
+          text_other ::= * emphasis_text text_other
+          text_other ::= * link text_other
+          text_other ::= * ASTERISK text_other
+          text_other ::= * escape text_other
+          text_other ::= * TEXT text_other
+     (28) text_other ::= *
+          emphasis_text ::= * EMPHASIS TEXT EMPHASIS
+          link ::= * LINK_START LINKTEXT LINK_INNER LINKTEXT LINK_END
+          escape ::= * BACKSLASH ESCAPEDCHAR
+          escape ::= * BACKSLASH NON_ESCAPEDCHAR
+
+                          TEXT shift  6
+                      ASTERISK shift  2
+                      EMPHASIS shift  49
+                    LINK_START shift  44
+                     BACKSLASH shift  40
+                 emphasis_text shift  4
+                    text_other shift  79
+                          link shift  3
+                        escape shift  5
+                     {default} reduce 28
+
+State 8:
+          text ::= TEXT * text_other
+          text_other ::= * emphasis_text text_other
+          text_other ::= * link text_other
+          text_other ::= * ASTERISK text_other
+          text_other ::= * escape text_other
+          text_other ::= * TEXT text_other
+     (28) text_other ::= *
+          emphasis_text ::= * EMPHASIS TEXT EMPHASIS
+          link ::= * LINK_START LINKTEXT LINK_INNER LINKTEXT LINK_END
+          escape ::= * BACKSLASH ESCAPEDCHAR
+          escape ::= * BACKSLASH NON_ESCAPEDCHAR
+
+                          TEXT shift  6
+                      ASTERISK shift  2
+                      EMPHASIS shift  49
+                    LINK_START shift  44
+                     BACKSLASH shift  40
+                 emphasis_text shift  4
+                    text_other shift  73
+                          link shift  3
+                        escape shift  5
+                     {default} reduce 28
+
+State 9:
+          text ::= link * text_other
+          text_other ::= * emphasis_text text_other
+          text_other ::= * link text_other
+          text_other ::= * ASTERISK text_other
+          text_other ::= * escape text_other
+          text_other ::= * TEXT text_other
+     (28) text_other ::= *
+          emphasis_text ::= * EMPHASIS TEXT EMPHASIS
+          link ::= * LINK_START LINKTEXT LINK_INNER LINKTEXT LINK_END
+          escape ::= * BACKSLASH ESCAPEDCHAR
+          escape ::= * BACKSLASH NON_ESCAPEDCHAR
+
+                          TEXT shift  6
+                      ASTERISK shift  2
+                      EMPHASIS shift  49
+                    LINK_START shift  44
+                     BACKSLASH shift  40
+                 emphasis_text shift  4
+                    text_other shift  85
+                          link shift  3
+                        escape shift  5
+                     {default} reduce 28
+
+State 10:
+          text ::= ASTERISK * text_other
+          text_other ::= * emphasis_text text_other
+          text_other ::= * link text_other
+          text_other ::= * ASTERISK text_other
+          text_other ::= * escape text_other
+          text_other ::= * TEXT text_other
+     (28) text_other ::= *
+          emphasis_text ::= * EMPHASIS TEXT EMPHASIS
+          link ::= * LINK_START LINKTEXT LINK_INNER LINKTEXT LINK_END
+          escape ::= * BACKSLASH ESCAPEDCHAR
+          escape ::= * BACKSLASH NON_ESCAPEDCHAR
+
+                          TEXT shift  6
+                      ASTERISK shift  2
+                      EMPHASIS shift  49
+                    LINK_START shift  44
+                     BACKSLASH shift  40
+                 emphasis_text shift  4
+                    text_other shift  84
+                          link shift  3
+                        escape shift  5
+                     {default} reduce 28
+
+State 11:
+          text ::= emphasis_text * text_other
+          text_other ::= * emphasis_text text_other
+          text_other ::= * link text_other
+          text_other ::= * ASTERISK text_other
+          text_other ::= * escape text_other
+          text_other ::= * TEXT text_other
+     (28) text_other ::= *
+          emphasis_text ::= * EMPHASIS TEXT EMPHASIS
+          link ::= * LINK_START LINKTEXT LINK_INNER LINKTEXT LINK_END
+          escape ::= * BACKSLASH ESCAPEDCHAR
+          escape ::= * BACKSLASH NON_ESCAPEDCHAR
+
+                          TEXT shift  6
+                      ASTERISK shift  2
+                      EMPHASIS shift  49
+                    LINK_START shift  44
+                     BACKSLASH shift  40
+                 emphasis_text shift  4
+                    text_other shift  89
+                          link shift  3
+                        escape shift  5
+                     {default} reduce 28
+
+State 12:
+          emphasis_text ::= * EMPHASIS TEXT EMPHASIS
+          remain_ul ::= UL_START * ul_li remain_ul
+          ul_li ::= * emphasis_text ul_text_other
+          ul_li ::= * ASTERISK ul_text_other
+          ul_li ::= * TEXT ul_text_other
+
+                          TEXT shift  21
+                      ASTERISK shift  26
+                      EMPHASIS shift  49
+                 emphasis_text shift  18
+                         ul_li shift  35
+
+State 13:
+          emphasis_text ::= * EMPHASIS TEXT EMPHASIS
+          ol_text_other ::= * emphasis_text ol_text_other
+          ol_text_other ::= emphasis_text * ol_text_other
+          ol_text_other ::= * ASTERISK ol_text_other
+          ol_text_other ::= * TEXT ol_text_other
+     (58) ol_text_other ::= *
+
+                          TEXT shift  15
+                      ASTERISK shift  14
+                      EMPHASIS shift  49
+                 emphasis_text shift  13
+                 ol_text_other shift  53
+                     {default} reduce 58
+
+State 14:
+          emphasis_text ::= * EMPHASIS TEXT EMPHASIS
+          ol_text_other ::= * emphasis_text ol_text_other
+          ol_text_other ::= * ASTERISK ol_text_other
+          ol_text_other ::= ASTERISK * ol_text_other
+          ol_text_other ::= * TEXT ol_text_other
+     (58) ol_text_other ::= *
+
+                          TEXT shift  15
+                      ASTERISK shift  14
+                      EMPHASIS shift  49
+                 emphasis_text shift  13
+                 ol_text_other shift  56
+                     {default} reduce 58
+
+State 15:
+          emphasis_text ::= * EMPHASIS TEXT EMPHASIS
+          ol_text_other ::= * emphasis_text ol_text_other
+          ol_text_other ::= * ASTERISK ol_text_other
+          ol_text_other ::= * TEXT ol_text_other
+          ol_text_other ::= TEXT * ol_text_other
+     (58) ol_text_other ::= *
+
+                          TEXT shift  15
+                      ASTERISK shift  14
+                      EMPHASIS shift  49
+                 emphasis_text shift  13
+                 ol_text_other shift  67
+                     {default} reduce 58
+
+State 16:
+          emphasis_text ::= * EMPHASIS TEXT EMPHASIS
+          ol_li ::= TEXT * ol_text_other
+          ol_text_other ::= * emphasis_text ol_text_other
+          ol_text_other ::= * ASTERISK ol_text_other
+          ol_text_other ::= * TEXT ol_text_other
+     (58) ol_text_other ::= *
+
+                          TEXT shift  15
+                      ASTERISK shift  14
+                      EMPHASIS shift  49
+                 emphasis_text shift  13
+                 ol_text_other shift  66
+                     {default} reduce 58
+
+State 17:
+          emphasis_text ::= * EMPHASIS TEXT EMPHASIS
+          ol_li ::= ASTERISK * ol_text_other
+          ol_text_other ::= * emphasis_text ol_text_other
+          ol_text_other ::= * ASTERISK ol_text_other
+          ol_text_other ::= * TEXT ol_text_other
+     (58) ol_text_other ::= *
+
+                          TEXT shift  15
+                      ASTERISK shift  14
+                      EMPHASIS shift  49
+                 emphasis_text shift  13
+                 ol_text_other shift  68
+                     {default} reduce 58
+
+State 18:
+          emphasis_text ::= * EMPHASIS TEXT EMPHASIS
+          ul_li ::= emphasis_text * ul_text_other
+          ul_text_other ::= * emphasis_text ul_text_other
+          ul_text_other ::= * ASTERISK ul_text_other
+          ul_text_other ::= * TEXT ul_text_other
+     (48) ul_text_other ::= *
+
+                          TEXT shift  20
+                      ASTERISK shift  23
+                      EMPHASIS shift  49
+                 emphasis_text shift  24
+                 ul_text_other shift  98
+                     {default} reduce 48
+
+State 19:
+          emphasis_text ::= * EMPHASIS TEXT EMPHASIS
+          ol_li ::= emphasis_text * ol_text_other
+          ol_text_other ::= * emphasis_text ol_text_other
+          ol_text_other ::= * ASTERISK ol_text_other
+          ol_text_other ::= * TEXT ol_text_other
+     (58) ol_text_other ::= *
+
+                          TEXT shift  15
+                      ASTERISK shift  14
+                      EMPHASIS shift  49
+                 emphasis_text shift  13
+                 ol_text_other shift  57
+                     {default} reduce 58
+
+State 20:
+          emphasis_text ::= * EMPHASIS TEXT EMPHASIS
+          ul_text_other ::= * emphasis_text ul_text_other
+          ul_text_other ::= * ASTERISK ul_text_other
+          ul_text_other ::= * TEXT ul_text_other
+          ul_text_other ::= TEXT * ul_text_other
+     (48) ul_text_other ::= *
+
+                          TEXT shift  20
+                      ASTERISK shift  23
+                      EMPHASIS shift  49
+                 emphasis_text shift  24
+                 ul_text_other shift  71
+                     {default} reduce 48
+
+State 21:
+          emphasis_text ::= * EMPHASIS TEXT EMPHASIS
+          ul_li ::= TEXT * ul_text_other
+          ul_text_other ::= * emphasis_text ul_text_other
+          ul_text_other ::= * ASTERISK ul_text_other
+          ul_text_other ::= * TEXT ul_text_other
+     (48) ul_text_other ::= *
+
+                          TEXT shift  20
+                      ASTERISK shift  23
+                      EMPHASIS shift  49
+                 emphasis_text shift  24
+                 ul_text_other shift  93
+                     {default} reduce 48
+
+State 22:
+          emphasis_text ::= * EMPHASIS TEXT EMPHASIS
+          ol ::= OL_START * ol_li remain_ol
+          ol_li ::= * emphasis_text ol_text_other
+          ol_li ::= * ASTERISK ol_text_other
+          ol_li ::= * TEXT ol_text_other
+
+                          TEXT shift  16
+                      ASTERISK shift  17
+                      EMPHASIS shift  49
+                 emphasis_text shift  19
+                         ol_li shift  38
+
+State 23:
+          emphasis_text ::= * EMPHASIS TEXT EMPHASIS
+          ul_text_other ::= * emphasis_text ul_text_other
+          ul_text_other ::= * ASTERISK ul_text_other
+          ul_text_other ::= ASTERISK * ul_text_other
+          ul_text_other ::= * TEXT ul_text_other
+     (48) ul_text_other ::= *
+
+                          TEXT shift  20
+                      ASTERISK shift  23
+                      EMPHASIS shift  49
+                 emphasis_text shift  24
+                 ul_text_other shift  94
+                     {default} reduce 48
+
+State 24:
+          emphasis_text ::= * EMPHASIS TEXT EMPHASIS
+          ul_text_other ::= * emphasis_text ul_text_other
+          ul_text_other ::= emphasis_text * ul_text_other
+          ul_text_other ::= * ASTERISK ul_text_other
+          ul_text_other ::= * TEXT ul_text_other
+     (48) ul_text_other ::= *
+
+                          TEXT shift  20
+                      ASTERISK shift  23
+                      EMPHASIS shift  49
+                 emphasis_text shift  24
+                 ul_text_other shift  100
+                     {default} reduce 48
+
+State 25:
+          emphasis_text ::= * EMPHASIS TEXT EMPHASIS
+          remain_ol ::= OL_START * ol_li remain_ol
+          ol_li ::= * emphasis_text ol_text_other
+          ol_li ::= * ASTERISK ol_text_other
+          ol_li ::= * TEXT ol_text_other
+
+                          TEXT shift  16
+                      ASTERISK shift  17
+                      EMPHASIS shift  49
+                 emphasis_text shift  19
+                         ol_li shift  37
+
+State 26:
+          emphasis_text ::= * EMPHASIS TEXT EMPHASIS
+          ul_li ::= ASTERISK * ul_text_other
+          ul_text_other ::= * emphasis_text ul_text_other
+          ul_text_other ::= * ASTERISK ul_text_other
+          ul_text_other ::= * TEXT ul_text_other
+     (48) ul_text_other ::= *
+
+                          TEXT shift  20
+                      ASTERISK shift  23
+                      EMPHASIS shift  49
+                 emphasis_text shift  24
+                 ul_text_other shift  90
+                     {default} reduce 48
+
+State 27:
+          emphasis_text ::= * EMPHASIS TEXT EMPHASIS
+          ul ::= UL_START * ul_li remain_ul
+          ul_li ::= * emphasis_text ul_text_other
+          ul_li ::= * ASTERISK ul_text_other
+          ul_li ::= * TEXT ul_text_other
+
+                          TEXT shift  21
+                      ASTERISK shift  26
+                      EMPHASIS shift  49
+                 emphasis_text shift  18
+                         ul_li shift  32
+
+State 28:
+          otherdocinfo ::= * docinfo_line otherdocinfo
+          otherdocinfo ::= docinfo_line * otherdocinfo
+      (4) otherdocinfo ::= *
+          docinfo_line ::= * DOCINFO_START TEXT docinfo_lineend
+
+                 DOCINFO_START shift  46
+                  docinfo_line shift  28
+                  otherdocinfo shift  65
+                     {default} reduce 4
+
+State 29:
+          othercodelines ::= * codeline othercodelines
+          othercodelines ::= codeline * othercodelines
+     (35) othercodelines ::= *
+          codeline ::= * CODELINE_START code
+
+                CODELINE_START shift  33
+                      codeline shift  29
+                othercodelines shift  74
+                     {default} reduce 35
+
+State 30:
+          docinfo ::= docinfo_line * otherdocinfo
+          otherdocinfo ::= * docinfo_line otherdocinfo
+      (4) otherdocinfo ::= *
+          docinfo_line ::= * DOCINFO_START TEXT docinfo_lineend
+
+                 DOCINFO_START shift  46
+                  docinfo_line shift  28
+                  otherdocinfo shift  63
+                     {default} reduce 4
+
+State 31:
+          codelines ::= codeline * othercodelines
+          othercodelines ::= * codeline othercodelines
+     (35) othercodelines ::= *
+          codeline ::= * CODELINE_START code
+
+                CODELINE_START shift  33
+                      codeline shift  29
+                othercodelines shift  72
+                     {default} reduce 35
+
+State 32:
+          ul ::= UL_START ul_li * remain_ul
+          remain_ul ::= * UL_START ul_li remain_ul
+     (41) remain_ul ::= *
+
+                      UL_START shift  12
+                     remain_ul shift  86
+                     {default} reduce 41
+
+State 33:
+          codeline ::= CODELINE_START * code
+          code ::= * CODETEXT
+     (38) code ::= *
+
+                      CODETEXT shift  77
+                          code shift  75
+                     {default} reduce 38
+
+State 34:
+          docinfo_line ::= DOCINFO_START TEXT * docinfo_lineend
+          docinfo_lineend ::= * DOCINFOLINE_END
+      (7) docinfo_lineend ::= *
+
+               DOCINFOLINE_END shift  60
+               docinfo_lineend shift  69
+                     {default} reduce 7
+
+State 35:
+          remain_ul ::= * UL_START ul_li remain_ul
+          remain_ul ::= UL_START ul_li * remain_ul
+     (41) remain_ul ::= *
+
+                      UL_START shift  12
+                     remain_ul shift  97
+                     {default} reduce 41
+
+State 36:
+      (1) markdownfile ::= docinfo paragraphs *
+          paragraphs ::= paragraphs * paragraph
+          paragraph ::= * PARAGRAPH_START text
+          paragraph ::= * PARAGRAPH_START codelines
+          paragraph ::= * PARAGRAPH_START ul
+          paragraph ::= * PARAGRAPH_START ol
+          paragraph ::= * PARAGRAPH_START headline
+          paragraph ::= * PARAGRAPH_START image
+          paragraph ::= * PARAGRAPH_START emptytext
+
+               PARAGRAPH_START shift  1
+                     paragraph shift  70
+                     {default} reduce 1
+
+State 37:
+          remain_ol ::= * OL_START ol_li remain_ol
+          remain_ol ::= OL_START ol_li * remain_ol
+     (51) remain_ol ::= *
+
+                      OL_START shift  25
+                     remain_ol shift  55
+                     {default} reduce 51
+
+State 38:
+          ol ::= OL_START ol_li * remain_ol
+          remain_ol ::= * OL_START ol_li remain_ol
+     (51) remain_ol ::= *
+
+                      OL_START shift  25
+                     remain_ol shift  101
+                     {default} reduce 51
+
+State 39:
+          markdownfile ::= docinfo * paragraphs
+          paragraphs ::= * paragraphs paragraph
+      (9) paragraphs ::= *
+
+                    paragraphs shift  36
+                     {default} reduce 9
+
+State 40:
+          escape ::= BACKSLASH * ESCAPEDCHAR
+          escape ::= BACKSLASH * NON_ESCAPEDCHAR
+
+                   ESCAPEDCHAR shift  80
+               NON_ESCAPEDCHAR shift  82
+
+State 41:
+          image ::= IMAGE_START IMAGETEXT IMAGE_INNER * IMAGETEXT IMAGE_END
+
+                     IMAGETEXT shift  48
+
+State 42:
+          image ::= IMAGE_START * IMAGETEXT IMAGE_INNER IMAGETEXT IMAGE_END
+
+                     IMAGETEXT shift  45
+
+State 43:
+          headline ::= HEADLINE_START * TEXT
+
+                          TEXT shift  61
+
+State 44:
+          link ::= LINK_START * LINKTEXT LINK_INNER LINKTEXT LINK_END
+
+                      LINKTEXT shift  51
+
+State 45:
+          image ::= IMAGE_START IMAGETEXT * IMAGE_INNER IMAGETEXT IMAGE_END
+
+                   IMAGE_INNER shift  41
+
+State 46:
+          docinfo_line ::= DOCINFO_START * TEXT docinfo_lineend
+
+                          TEXT shift  34
+
+State 47:
+          link ::= LINK_START LINKTEXT LINK_INNER LINKTEXT * LINK_END
+
+                      LINK_END shift  81
+
+State 48:
+          image ::= IMAGE_START IMAGETEXT IMAGE_INNER IMAGETEXT * IMAGE_END
+
+                     IMAGE_END shift  64
+
+State 49:
+          emphasis_text ::= EMPHASIS * TEXT EMPHASIS
+
+                          TEXT shift  50
+
+State 50:
+          emphasis_text ::= EMPHASIS TEXT * EMPHASIS
+
+                      EMPHASIS shift  83
+
+State 51:
+          link ::= LINK_START LINKTEXT * LINK_INNER LINKTEXT LINK_END
+
+                    LINK_INNER shift  52
+
+State 52:
+          link ::= LINK_START LINKTEXT LINK_INNER * LINKTEXT LINK_END
+
+                      LINKTEXT shift  47
+
+State 53:
+     (55) ol_text_other ::= emphasis_text ol_text_other *
+
+                     {default} reduce 55
+
+State 54:
+     (10) paragraph ::= PARAGRAPH_START text *
+
+                     {default} reduce 10
+
+State 55:
+     (50) remain_ol ::= OL_START ol_li remain_ol *
+
+                     {default} reduce 50
+
+State 56:
+     (56) ol_text_other ::= ASTERISK ol_text_other *
+
+                     {default} reduce 56
+
+State 57:
+     (52) ol_li ::= emphasis_text ol_text_other *
+
+                     {default} reduce 52
+
+State 58:
+     (11) paragraph ::= PARAGRAPH_START codelines *
+
+                     {default} reduce 11
+
+State 59:
+     (12) paragraph ::= PARAGRAPH_START ul *
+
+                     {default} reduce 12
+
+State 60:
+      (6) docinfo_lineend ::= DOCINFOLINE_END *
+
+                     {default} reduce 6
+
+State 61:
+     (59) headline ::= HEADLINE_START TEXT *
+
+                     {default} reduce 59
+
+State 62:
+     (13) paragraph ::= PARAGRAPH_START ol *
+
+                     {default} reduce 13
+
+State 63:
+      (2) docinfo ::= docinfo_line otherdocinfo *
+
+                     {default} reduce 2
+
+State 64:
+     (60) image ::= IMAGE_START IMAGETEXT IMAGE_INNER IMAGETEXT IMAGE_END *
+
+                     {default} reduce 60
+
+State 65:
+      (3) otherdocinfo ::= docinfo_line otherdocinfo *
+
+                     {default} reduce 3
+
+State 66:
+     (54) ol_li ::= TEXT ol_text_other *
+
+                     {default} reduce 54
+
+State 67:
+     (57) ol_text_other ::= TEXT ol_text_other *
+
+                     {default} reduce 57
+
+State 68:
+     (53) ol_li ::= ASTERISK ol_text_other *
+
+                     {default} reduce 53
+
+State 69:
+      (5) docinfo_line ::= DOCINFO_START TEXT docinfo_lineend *
+
+                     {default} reduce 5
+
+State 70:
+      (8) paragraphs ::= paragraphs paragraph *
+
+                     {default} reduce 8
+
+State 71:
+     (47) ul_text_other ::= TEXT ul_text_other *
+
+                     {default} reduce 47
+
+State 72:
+     (33) codelines ::= codeline othercodelines *
+
+                     {default} reduce 33
+
+State 73:
+     (22) text ::= TEXT text_other *
+
+                     {default} reduce 22
+
+State 74:
+     (34) othercodelines ::= codeline othercodelines *
+
+                     {default} reduce 34
+
+State 75:
+     (36) codeline ::= CODELINE_START code *
+
+                     {default} reduce 36
+
+State 76:
+      (0) start ::= markdownfile *
+
+                     {default} reduce 0
+
+State 77:
+     (37) code ::= CODETEXT *
+
+                     {default} reduce 37
+
+State 78:
+     (27) text_other ::= TEXT text_other *
+
+                     {default} reduce 27
+
+State 79:
+     (21) text ::= escape text_other *
+
+                     {default} reduce 21
+
+State 80:
+     (31) escape ::= BACKSLASH ESCAPEDCHAR *
+
+                     {default} reduce 31
+
+State 81:
+     (30) link ::= LINK_START LINKTEXT LINK_INNER LINKTEXT LINK_END *
+
+                     {default} reduce 30
+
+State 82:
+     (32) escape ::= BACKSLASH NON_ESCAPEDCHAR *
+
+                     {default} reduce 32
+
+State 83:
+     (29) emphasis_text ::= EMPHASIS TEXT EMPHASIS *
+
+                     {default} reduce 29
+
+State 84:
+     (20) text ::= ASTERISK text_other *
+
+                     {default} reduce 20
+
+State 85:
+     (19) text ::= link text_other *
+
+                     {default} reduce 19
+
+State 86:
+     (39) ul ::= UL_START ul_li remain_ul *
+
+                     {default} reduce 39
+
+State 87:
+     (26) text_other ::= escape text_other *
+
+                     {default} reduce 26
+
+State 88:
+     (16) paragraph ::= PARAGRAPH_START emptytext *
+
+                     {default} reduce 16
+
+State 89:
+     (18) text ::= emphasis_text text_other *
+
+                     {default} reduce 18
+
+State 90:
+     (43) ul_li ::= ASTERISK ul_text_other *
+
+                     {default} reduce 43
+
+State 91:
+     (15) paragraph ::= PARAGRAPH_START image *
+
+                     {default} reduce 15
+
+State 92:
+     (14) paragraph ::= PARAGRAPH_START headline *
+
+                     {default} reduce 14
+
+State 93:
+     (44) ul_li ::= TEXT ul_text_other *
+
+                     {default} reduce 44
+
+State 94:
+     (46) ul_text_other ::= ASTERISK ul_text_other *
+
+                     {default} reduce 46
+
+State 95:
+     (23) text_other ::= emphasis_text text_other *
+
+                     {default} reduce 23
+
+State 96:
+     (25) text_other ::= ASTERISK text_other *
+
+                     {default} reduce 25
+
+State 97:
+     (40) remain_ul ::= UL_START ul_li remain_ul *
+
+                     {default} reduce 40
+
+State 98:
+     (42) ul_li ::= emphasis_text ul_text_other *
+
+                     {default} reduce 42
+
+State 99:
+     (24) text_other ::= link text_other *
+
+                     {default} reduce 24
+
+State 100:
+     (45) ul_text_other ::= emphasis_text ul_text_other *
+
+                     {default} reduce 45
+
+State 101:
+     (49) ol ::= OL_START ol_li remain_ol *
+
+                     {default} reduce 49
+
