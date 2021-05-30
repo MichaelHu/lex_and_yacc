@@ -1,0 +1,29 @@
+State 0:
+          start ::= * a
+          a ::= * CHAR_A a
+      (2) a ::= *
+
+                        CHAR_A shift  1
+                         start accept
+                             a shift  3
+                     {default} reduce 2
+
+State 1:
+          a ::= * CHAR_A a
+          a ::= CHAR_A * a
+      (2) a ::= *
+
+                        CHAR_A shift  1
+                             a shift  2
+                     {default} reduce 2
+
+State 2:
+      (1) a ::= CHAR_A a *
+
+                     {default} reduce 1
+
+State 3:
+      (0) start ::= a *
+
+                     {default} reduce 0
+

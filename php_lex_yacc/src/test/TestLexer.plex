@@ -1,0 +1,70 @@
+<?php
+/**
+* TestFileLexer
+*
+* This is the lexer to break the markdown file source into tokens 
+* @author hudamin@baidu.com 
+*/
+class TestLexer
+{
+
+    public $data;
+    public $counter;
+    public $token;
+    public $value;
+    public $node;
+    public $line;
+    private $state = 1;
+    private $mbstring_overload = false;
+    				
+    				
+    function __construct($data, $smarty = null)
+    {
+        // set instance object
+        self::instance($this); 
+        // $this->data = $data . "\n"; //now all lines are \n-terminated
+        $this->data = $data;
+        $this->counter = 0;
+        $this->line = 1;
+     }
+    public static function &instance($new_instance = null)
+    {
+        static $instance = null;
+        if (isset($new_instance) && is_object($new_instance))
+            $instance = $new_instance;
+        return $instance;
+    } 
+
+    public function showstate(){
+        echo "state: " . $this->_yy_state . "\n";
+    }
+
+
+/*!lex2php
+%input $this->data
+%counter $this->counter
+%token $this->token
+%value $this->value
+%line $this->line
+char_a = "a"
+char_b = "b"
+*/
+
+/*!lex2php
+%statename START
+
+char_a {
+    $this->token = TestParser::TEST_CHAR_A;
+}
+
+char_b {
+    $this->token = TestParser::TEST_CHAR_B;
+}
+
+*/
+
+
+}
+
+?>
+
